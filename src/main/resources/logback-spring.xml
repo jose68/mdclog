@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true">
+<configuration>
 
     <property name="LOGS" value="./logs" />
 
@@ -12,37 +12,14 @@
         </layout>
     </appender>
 
-    
-<!--    <appender name="VirtualThread"-->
-<!--        class="ch.qos.logback.core.rolling.RollingFileAppender">      	-->
-<!--    	<file>${LOGS}/virtualthread-${MDC[virtualThreadId]}.log</file>-->
-<!--    	<rollingPolicy-->
-<!--        	class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
-<!--        	<fileNamePattern>${LOGS}/archived/virtualthread-1-%d{yyyy-MM-dd}.%i.log-->
-<!--        	</fileNamePattern>-->
-<!--        	<timeBasedFileNamingAndTriggeringPolicy-->
-<!--            	class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">-->
-<!--            	<maxFileSize>10MB</maxFileSize>-->
-<!--        	</timeBasedFileNamingAndTriggeringPolicy>-->
-<!--        </rollingPolicy>-->
-      
-<!--        <encoder-->
-<!--            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
-<!--            <Pattern>%d %p [%t] %m %X{virtualThreadId} %n</Pattern>-->
-<!--        </encoder>-->
-        
-<!--	</appender>-->
-
-
-	<!-- https://nurkiewicz.com/2013/04/siftingappender-logging-different.html -->
-	<appender name="VirtualThread" class="ch.qos.logback.classic.sift.SiftingAppender">
+	<appender name="Thread" class="ch.qos.logback.classic.sift.SiftingAppender">
         <discriminator>
-            <key>virtualThreadId</key>
+            <key>ThreadId</key>
             <defaultValue>unknown</defaultValue>
         </discriminator>
         <sift>
-             <appender name="FILE-${virtualThreadId}" class="ch.qos.logback.core.FileAppender">
-                <file>${LOGS}/VirtualThread-${virtualThreadId}.log</file>
+             <appender name="FILE-${ThreadId}" class="ch.qos.logback.core.FileAppender">
+                <file>${LOGS}/Thread-${ThreadId}.log</file>
                 <layout class="ch.qos.logback.classic.PatternLayout">
                     <pattern>%d{HH:mm:ss:SSS} | %-5level | %thread | %logger{20} | %msg%n%rEx</pattern>
                 </layout>
@@ -51,12 +28,12 @@
     </appender>
 	
     
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="Console" />
     </root>
     
 	<logger name="jbi.sample.mdclog.service" level="trace" additivity="false">
-		<appender-ref ref="VirtualThread" />
+		<appender-ref ref="Thread" />
 	</logger>
 
 </configuration>
