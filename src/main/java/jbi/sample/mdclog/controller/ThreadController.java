@@ -17,7 +17,7 @@ public class ThreadController {
 	@GetMapping("/test")
 	public String Test() throws InterruptedException {
 		
-		CompletableFuture<Integer> threadService1 = threadService.runTest(1);
+	CompletableFuture<Integer> threadService1 = threadService.runTest(1);
         CompletableFuture<Integer> threadService2 = threadService.runTest(2);
 
         CompletableFuture.allOf(threadService1, threadService2).join();
