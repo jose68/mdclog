@@ -12,7 +12,7 @@
         </layout>
     </appender>
 
-	<appender name="Thread" class="ch.qos.logback.classic.sift.SiftingAppender">
+    <appender name="Thread" class="ch.qos.logback.classic.sift.SiftingAppender">
         <discriminator>
             <key>ThreadId</key>
             <defaultValue>unknown</defaultValue>
